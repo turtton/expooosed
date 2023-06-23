@@ -20,6 +20,6 @@ fun main() {
         }.onFailure { it.printStackTrace() }
     }
     transaction {
-        UserCreater.createUser(this, "John", 20).onFailure { it.printStackTrace() }
+        UserController.createUser(this, "John", 20).onFailure { it.printStackTrace() }
     }
 }
