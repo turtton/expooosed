@@ -6,6 +6,7 @@ import db.repository.api.UsesUserRepository
 import db.table.Users
 import entity.User
 import org.jetbrains.exposed.sql.Transaction
+import org.jetbrains.exposed.sql.update
 import vobject.Age
 import vobject.Id
 import vobject.Name
@@ -35,8 +36,14 @@ private object ExposedDDDUserRepository : UserRepository<Transaction> {
         TODO("Not yet implemented")
     }
 
-    override fun updateUser(transaction: Transaction, id: Int, name: String, age: Int): Result<User?> {
-        TODO("Not yet implemented")
+    override fun updateUser(transaction: Transaction, id: Int, name: String, age: Int): Result<User?> = result {
+        transaction.run {
+            Users.update({ Users.id eq id }) {
+                it[this.name] = name
+                it[this.age] = age
+            }
+            Users.User[id].let { User(Id(it.id.value), Name(it.name), Age(it.age)) }
+        }
     }
 
     override fun deleteUser(transaction: Transaction, id: Int): Result<Boolean> {

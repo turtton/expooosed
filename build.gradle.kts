@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("org.jetbrains.exposed:exposed-core:0.40.1")?.version?.also { exposedVersion ->
         implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
         implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
